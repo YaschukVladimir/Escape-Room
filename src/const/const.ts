@@ -39,3 +39,9 @@ export enum NameSpace {
   App = 'APP',
   User = 'USER',
 }
+
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}

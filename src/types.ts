@@ -28,6 +28,16 @@ export type DataProcess = {
   detailedQuest: DetailedQuest;
 }
 
+export type UserData = {
+  email: string;
+  token: string;
+}
+
+export type AuthData = {
+  email: string;
+  password: string;
+}
+
 export type State = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;

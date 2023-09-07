@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import { AppRoute } from '../../const/const';
 import MainPage from '../../pages/main-page/main-page';
 import MyQuests from '../../pages/my-quests/my-quests';
-import Login from '../../pages/login-page/login';
+import LoginPage from '../../pages/login-page/login-page';
 import Booking from '../../pages/booking-page/booking';
 import HistoryRouter from '../history-route';
 import browserHistory from '../../browser-history';
@@ -43,7 +43,7 @@ function MainApp(): React.JSX.Element {
         <Route
           path={AppRoute.Login}
           element={
-            <Login />
+            <LoginPage />
           }
         />
         <Route
