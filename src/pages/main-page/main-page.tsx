@@ -1,5 +1,6 @@
 import FilterDifficultyList from '../../components/filter-list/filter-difficulty-list';
 import FilterList from '../../components/filter-list/filter-type-list';
+import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import QuestsList from '../../components/quests-list/quests-list';
 import { Quest } from '../../types';
@@ -459,7 +460,8 @@ function MainPage({quests}: MainPageProps): React.JSX.Element {
           <QuestsList quests={quests}/>
         </div>
       </main>
-      <footer className="footer">
+      <Footer />
+      {/* <footer className="footer">
         <div className="container container--size-l">
           <div className="socials">
             <ul className="socials__list">
@@ -518,7 +520,7 @@ function MainPage({quests}: MainPageProps): React.JSX.Element {
             </ul>
           </div>
         </div>
-      </footer>
+      </footer> */}
     </div>
   );
 }

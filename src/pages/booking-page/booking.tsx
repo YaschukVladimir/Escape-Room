@@ -1,3 +1,4 @@
+import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 
 
@@ -249,7 +250,8 @@ function Booking(): React.JSX.Element {
           </form>
         </div>
       </main>
-      <footer className="footer">
+      <Footer />
+      {/* <footer className="footer">
         <div className="container container--size-l">
           <div className="socials">
             <ul className="socials__list">
@@ -308,7 +310,7 @@ function Booking(): React.JSX.Element {
             </ul>
           </div>
         </div>
-      </footer>
+      </footer> */}
     </div>
 
   );

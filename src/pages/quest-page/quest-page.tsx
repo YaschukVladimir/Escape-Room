@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/use-app-dispatch';
 import { getDetailedQuest } from '../../store/data-process/selector';
 import { fetchDetailedQuest } from '../../store/api-actions';
 import { useEffect } from 'react';
+import Footer from '../../components/footer/footer';
 // import { questDifficulty, questTypes } from '../../const/const';
 
 
@@ -73,7 +74,8 @@ function QuestPage(): React.JSX.Element {
           </div>
         </div>
       </main>
-      <footer className="footer">
+      <Footer />
+      {/* <footer className="footer">
         <div className="container container--size-l">
           <div className="socials">
             <ul className="socials__list">
@@ -132,7 +134,7 @@ function QuestPage(): React.JSX.Element {
             </ul>
           </div>
         </div>
-      </footer>
+      </footer> */}
     </div>
 
   );

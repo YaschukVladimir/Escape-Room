@@ -1,3 +1,4 @@
+import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 
 
@@ -88,7 +89,8 @@ function Login(): React.JSX.Element {
           </div>
         </div>
       </main>
-      <footer className="footer">
+      <Footer />
+      {/* <footer className="footer">
         <div className="container container--size-l">
           <div className="socials">
             <ul className="socials__list">
@@ -147,7 +149,7 @@ function Login(): React.JSX.Element {
             </ul>
           </div>
         </div>
-      </footer>
+      </footer> */}
     </div>
 
   );

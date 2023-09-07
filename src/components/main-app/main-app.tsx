@@ -15,7 +15,7 @@ import QuestPage from '../../pages/quest-page/quest-page';
 function MainApp(): React.JSX.Element {
   const quests = useAppSelector(getQuests);
 
-  console.log(quests, 'quests');
+  // console.log(quests, 'quests');
 
   return (
     <HistoryRouter history={browserHistory}>
