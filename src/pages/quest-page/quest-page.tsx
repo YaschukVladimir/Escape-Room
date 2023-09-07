@@ -1,7 +1,7 @@
 import Header from '../../components/header/header';
 
 
-function Quest(): React.JSX.Element {
+function QuestPage(): React.JSX.Element {
   return (
     <div className="wrapper">
       <Header />
@@ -127,4 +127,4 @@ function Quest(): React.JSX.Element {
   );
 }
 
-export default Quest;
+export default QuestPage;

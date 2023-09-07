@@ -1,8 +1,15 @@
-import FilterList from '../../components/filter-list/filter-list';
+import FilterDifficultyList from '../../components/filter-list/filter-difficulty-list';
+import FilterList from '../../components/filter-list/filter-type-list';
 import Header from '../../components/header/header';
+import QuestsList from '../../components/quests-list/quests-list';
+import { Quest } from '../../types';
+
+type MainPageProps = {
+  quests: Quest[];
+}
 
 
-function MainPage(): React.JSX.Element {
+function MainPage({quests}: MainPageProps): React.JSX.Element {
   return (
     <div className="wrapper">
       <Header />
@@ -24,37 +31,12 @@ function MainPage(): React.JSX.Element {
               </fieldset>
               <fieldset className="filter__section">
                 <legend className="visually-hidden">Сложность</legend>
-                <ul className="filter__list">
-                  <li className="filter__item">
-                    <input type="radio" name="level" id="any" defaultChecked />
-                    <label className="filter__label" htmlFor="any">
-                      <span className="filter__label-text">Любой</span>
-                    </label>
-                  </li>
-                  <li className="filter__item">
-                    <input type="radio" name="level" id="easy" />
-                    <label className="filter__label" htmlFor="easy">
-                      <span className="filter__label-text">Лёгкий</span>
-                    </label>
-                  </li>
-                  <li className="filter__item">
-                    <input type="radio" name="level" id="middle" />
-                    <label className="filter__label" htmlFor="middle">
-                      <span className="filter__label-text">Средний</span>
-                    </label>
-                  </li>
-                  <li className="filter__item">
-                    <input type="radio" name="level" id="hard" />
-                    <label className="filter__label" htmlFor="hard">
-                      <span className="filter__label-text">Сложный</span>
-                    </label>
-                  </li>
-                </ul>
+                <FilterDifficultyList />
               </fieldset>
             </form>
           </div>
           <h2 className="title visually-hidden">Выберите квест</h2>
-          <div className="cards-grid">
+          {/* <div className="cards-grid">
             <div className="quest-card">
               <div className="quest-card__img">
                 <picture>
@@ -473,7 +455,8 @@ function MainPage(): React.JSX.Element {
                 </ul>
               </div>
             </div>
-          </div>
+          </div> */}
+          <QuestsList quests={quests}/>
         </div>
       </main>
       <footer className="footer">

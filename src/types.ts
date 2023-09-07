@@ -1,3 +1,5 @@
+import {store} from '../src/store/index';
+
 export type Quest = {
   id: string;
   title: string;
@@ -7,3 +9,11 @@ export type Quest = {
   type: string;
   peopleMinMax: number[];
 }
+
+export type DataProcess = {
+  quests: Quest[];
+}
+
+export type State = ReturnType<typeof store.getState>;
+
+export type AppDispatch = typeof store.dispatch;
