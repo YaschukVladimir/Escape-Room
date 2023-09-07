@@ -9,7 +9,7 @@ export enum AppRoute {
 
 export enum ApiRoute {
   GetQuests = '/v1/escape-room/quest',
-  GetDetailedQuest = '/v1/escape-room/quest/{questId}',
+  GetDetailedQuest = '/v1/escape-room/quest',
   Booking = '/v1/escape-room/quest/{questId}/booking',
   Login = '/v1/escape-room/login',
   Logout = '/v1/escape-room/logout',

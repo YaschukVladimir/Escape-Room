@@ -1,7 +1,25 @@
+import { useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
+import { useAppDispatch, useAppSelector } from '../../hooks/use-app-dispatch';
+import { getDetailedQuest } from '../../store/data-process/selector';
+import { fetchDetailedQuest } from '../../store/api-actions';
+import { useEffect } from 'react';
+// import { questDifficulty, questTypes } from '../../const/const';
 
 
 function QuestPage(): React.JSX.Element {
+
+  const dispatch = useAppDispatch();
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchDetailedQuest(id));
+    }
+  }, [id, dispatch]);
+
+  const detailedQuest = useAppSelector(getDetailedQuest);
+
   return (
     <div className="wrapper">
       <Header />
@@ -10,11 +28,11 @@ function QuestPage(): React.JSX.Element {
           <picture>
             <source
               type="image/webp"
-              srcSet="/public/img/content/maniac/maniac-size-m.webp, /public/img/content/maniac/maniac-size-m@2x.webp 2x"
+              srcSet={detailedQuest?.coverImgWebp}
             />
             <img
-              src="/public/img/content/maniac/maniac-size-m.jpg"
-              srcSet="/public/img/content/maniac/maniac-size-m@2x.jpg 2x"
+              src={detailedQuest?.previewImg}
+              srcSet={detailedQuest?.previewImgWebp}
               width={1366}
               height={768}
               alt=""
@@ -24,34 +42,27 @@ function QuestPage(): React.JSX.Element {
         <div className="container container--size-l">
           <div className="quest-page__content">
             <h1 className="title title--size-l title--uppercase quest-page__title">
-              Маньяк
+              {detailedQuest?.title}
             </h1>
             <p className="subtitle quest-page__subtitle">
-              <span className="visually-hidden">Жанр:</span>Ужасы
+              <span className="visually-hidden">Жанр:</span>{detailedQuest.type}
             </p>
             <ul className="tags tags--size-l quest-page__tags">
               <li className="tags__item">
                 <svg width={11} height={14} aria-hidden="true">
                   <use xlinkHref="#icon-person" />
                 </svg>
-                3–6&nbsp;чел
+                {`${detailedQuest.peopleMinMax[0]}-${detailedQuest.peopleMinMax[1]}`}&nbsp;чел
               </li>
               <li className="tags__item">
                 <svg width={14} height={14} aria-hidden="true">
                   <use xlinkHref="#icon-level" />
                 </svg>
-                Средний
+                {`${detailedQuest.level}`}
               </li>
             </ul>
             <p className="quest-page__description">
-              В&nbsp;комнате с&nbsp;приглушённым светом несколько человек,
-              незнакомых друг с&nbsp;другом, приходят в&nbsp;себя. Никто
-              не&nbsp;помнит, что произошло прошлым вечером. Руки и&nbsp;ноги
-              связаны, но&nbsp;одному из&nbsp;вас получилось освободиться.
-              На&nbsp;стене висит пугающий таймер и&nbsp;запущен отсчёт
-              60&nbsp;минут. Сможете&nbsp;ли вы&nbsp;разобраться в&nbsp;стрессовой
-              ситуации, помочь другим, разобраться что произошло и&nbsp;выбраться
-              из&nbsp;комнаты?
+              {detailedQuest.description}
             </p>
             <a
               className="btn btn--accent btn--cta quest-page__btn"

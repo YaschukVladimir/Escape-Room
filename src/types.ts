@@ -10,8 +10,22 @@ export type Quest = {
   peopleMinMax: number[];
 }
 
+export type DetailedQuest = {
+  id: string;
+  title: string;
+  previewImg: string;
+  previewImgWebp: string;
+  level: string;
+  type: string;
+  peopleMinMax: number[];
+  description: string;
+  coverImg: string;
+  coverImgWebp: string;
+}
+
 export type DataProcess = {
   quests: Quest[];
+  detailedQuest: DetailedQuest;
 }
 
 export type State = ReturnType<typeof store.getState>;
