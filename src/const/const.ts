@@ -8,10 +8,10 @@ export enum AppRoute {
 }
 
 export const questTypes = {
-  all: 'Все квесты',
-  adventure: 'Приключения',
-  horror: 'Ужасы',
-  mystic: 'Мистика',
-  detective: 'Детектив',
-  scifi: 'Sci-fi',
+  'all-quests': 'Все квесты',
+  'adventure': 'Приключения',
+  'horror': 'Ужасы',
+  'mystic': 'Мистика',
+  'detective': 'Детектив',
+  'sci-fi': 'Sci-fi',
 };
