@@ -11,6 +11,8 @@ type MainPageProps = {
 
 
 function MainPage({quests}: MainPageProps): React.JSX.Element {
+
+  // console.log(quests, 'quests')
   return (
     <div className="wrapper">
       <Header />

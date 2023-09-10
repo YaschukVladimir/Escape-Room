@@ -1,3 +1,4 @@
+
 export enum AppRoute {
   Root = '/',
   Quest = '/quest/:id',
@@ -10,7 +11,7 @@ export enum AppRoute {
 export enum ApiRoute {
   GetQuests = '/v1/escape-room/quest',
   GetDetailedQuest = '/v1/escape-room/quest',
-  Booking = '/v1/escape-room/quest/{questId}/booking',
+  Booking = '/v1/escape-room/quest',
   Login = '/v1/escape-room/login',
   Logout = '/v1/escape-room/logout',
   MyQuests = '/v1/escape-room/reservation',
@@ -32,7 +33,7 @@ export const questDifficulty = {
   'hard': 'сложный'
 };
 
-export const TIMEOUT_SHOW_ERROR = 2000;
+export const TIMEOUT_SHOW_ERROR = 500;
 
 export enum NameSpace {
   Data = 'DATA',
@@ -45,3 +46,8 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+export const URL_MARKER_DEFAULT = '/public/img/svg/pin-default.svg';
+export const URL_MARKER_CURRENT = '/public/img/svg/pin-active.svg';
+
+export const ZOOM = 13;

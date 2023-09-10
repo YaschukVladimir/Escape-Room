@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/use-app-dispatch';
 import { getAuthStatus } from '../../store/user-process/selectors';
 import { AppRoute, AuthorizationStatus } from '../../const/const';
@@ -8,6 +8,7 @@ function SideNav(): React.JSX.Element {
 
   const dispatch = useAppDispatch();
   const authStatus = useAppSelector(getAuthStatus);
+  const navigate = useNavigate();
 
 
   if (authStatus === AuthorizationStatus.Auth) {
@@ -18,6 +19,7 @@ function SideNav(): React.JSX.Element {
           onClick={(evt) => {
             evt.preventDefault();
             dispatch(logoutAction());
+            navigate(AppRoute.Root);
           }}
         >
           Выйти

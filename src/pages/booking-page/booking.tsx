@@ -1,8 +1,39 @@
+import { useEffect } from 'react';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
+import TodayQuestTime from '../../components/quest-time/today-quest-time';
+import { useAppDispatch, useAppSelector } from '../../hooks/use-app-dispatch';
+import { fetchBookingQuestInfo } from '../../store/api-actions';
+import { getBookingQuestInfo, getDetailedQuest } from '../../store/data-process/selector';
+import { useParams } from 'react-router-dom';
+import TomorrowQuestTime from '../../components/quest-time/tomorrow-quest-time';
+import MapMemo from '../../components/map/map';
 
+// type BookingProps = {
+//   id: string;
+// }
 
 function Booking(): React.JSX.Element {
+
+  const {id} = useParams();
+
+  console.log(id, 'params');
+
+
+  const dispatch = useAppDispatch();
+  const detailedQuest = useAppSelector(getDetailedQuest);
+
+  useEffect(() => {
+    if (detailedQuest.id) {
+      dispatch(fetchBookingQuestInfo(detailedQuest.id));
+    } else if (id) {
+      dispatch(fetchBookingQuestInfo(id));
+    }
+  }, [id, dispatch, detailedQuest.id]);
+
+  const bookingQuestInfo = useAppSelector(getBookingQuestInfo);
+  console.log(bookingQuestInfo, 'booking');
+
   return (
     <div className="wrapper">
       <Header/>
@@ -11,11 +42,11 @@ function Booking(): React.JSX.Element {
           <picture>
             <source
               type="image/webp"
-              srcSet="/public/img/content/maniac/maniac-bg-size-m.webp, /public/img/content/maniac/maniac-bg-size-m@2x.webp 2x"
+              srcSet={detailedQuest.coverImgWebp}
             />
             <img
-              src="/public/img/content/maniac/maniac-bg-size-m.jpg"
-              srcSet="/public/img/content/maniac/maniac-bg-size-m@2x.jpg 2x"
+              src={detailedQuest.coverImg}
+              srcSet={detailedQuest.coverImgWebp}
               width={1366}
               height={1959}
               alt=""
@@ -28,17 +59,18 @@ function Booking(): React.JSX.Element {
           Бронирование квеста
             </h1>
             <p className="title title--size-m title--uppercase page-content__title">
-          Маньяк
+              {detailedQuest.title}
             </p>
           </div>
           <div className="page-content__item">
             <div className="booking-map">
               <div className="map">
-                <div className="map__container" />
+                <div className="map__container">
+                  {bookingQuestInfo.length && <MapMemo bookingInfo={bookingQuestInfo}/>}
+                </div>
               </div>
               <p className="booking-map__address">
-            Вы&nbsp;выбрали: наб. реки Карповки&nbsp;5, лит&nbsp;П, м.
-            Петроградская
+                {bookingQuestInfo[0]?.location.address}
               </p>
             </div>
           </div>
@@ -51,117 +83,11 @@ function Booking(): React.JSX.Element {
               <legend className="visually-hidden">Выбор даты и времени</legend>
               <fieldset className="booking-form__date-section">
                 <legend className="booking-form__date-title">Сегодня</legend>
-                <div className="booking-form__date-inner-wrapper">
-                  <label className="custom-radio booking-form__date">
-                    <input
-                      type="radio"
-                      id="today9h45m"
-                      name="date"
-                      required
-                      defaultValue="today9h45m"
-                    />
-                    <span className="custom-radio__label">9:45</span>
-                  </label>
-                  <label className="custom-radio booking-form__date">
-                    <input
-                      type="radio"
-                      id="today15h00m"
-                      name="date"
-                      defaultChecked
-                      required
-                      defaultValue="today15h00m"
-                    />
-                    <span className="custom-radio__label">15:00</span>
-                  </label>
-                  <label className="custom-radio booking-form__date">
-                    <input
-                      type="radio"
-                      id="today17h30m"
-                      name="date"
-                      required
-                      defaultValue="today17h30m"
-                    />
-                    <span className="custom-radio__label">17:30</span>
-                  </label>
-                  <label className="custom-radio booking-form__date">
-                    <input
-                      type="radio"
-                      id="today19h30m"
-                      name="date"
-                      required
-                      defaultValue="today19h30m"
-                      disabled
-                    />
-                    <span className="custom-radio__label">19:30</span>
-                  </label>
-                  <label className="custom-radio booking-form__date">
-                    <input
-                      type="radio"
-                      id="today21h30m"
-                      name="date"
-                      required
-                      defaultValue="today21h30m"
-                    />
-                    <span className="custom-radio__label">21:30</span>
-                  </label>
-                </div>
+                {bookingQuestInfo.length && <TodayQuestTime todayQuestTimeProps={bookingQuestInfo}/>}
               </fieldset>
               <fieldset className="booking-form__date-section">
                 <legend className="booking-form__date-title">Завтра</legend>
-                <div className="booking-form__date-inner-wrapper">
-                  <label className="custom-radio booking-form__date">
-                    <input
-                      type="radio"
-                      id="tomorrow11h00m"
-                      name="date"
-                      required
-                      defaultValue="tomorrow11h00m"
-                    />
-                    <span className="custom-radio__label">11:00</span>
-                  </label>
-                  <label className="custom-radio booking-form__date">
-                    <input
-                      type="radio"
-                      id="tomorrow15h00m"
-                      name="date"
-                      required
-                      defaultValue="tomorrow15h00m"
-                      disabled
-                    />
-                    <span className="custom-radio__label">15:00</span>
-                  </label>
-                  <label className="custom-radio booking-form__date">
-                    <input
-                      type="radio"
-                      id="tomorrow17h30m"
-                      name="date"
-                      required
-                      defaultValue="tomorrow17h30m"
-                      disabled
-                    />
-                    <span className="custom-radio__label">17:30</span>
-                  </label>
-                  <label className="custom-radio booking-form__date">
-                    <input
-                      type="radio"
-                      id="tomorrow19h45m"
-                      name="date"
-                      required
-                      defaultValue="tomorrow19h45m"
-                    />
-                    <span className="custom-radio__label">19:45</span>
-                  </label>
-                  <label className="custom-radio booking-form__date">
-                    <input
-                      type="radio"
-                      id="tomorrow21h30m"
-                      name="date"
-                      required
-                      defaultValue="tomorrow21h30m"
-                    />
-                    <span className="custom-radio__label">21:30</span>
-                  </label>
-                </div>
+                {bookingQuestInfo.length && <TomorrowQuestTime tomorrowQuestTimeProps={bookingQuestInfo}/>}
               </fieldset>
             </fieldset>
             <fieldset className="booking-form__section">
@@ -251,66 +177,6 @@ function Booking(): React.JSX.Element {
         </div>
       </main>
       <Footer />
-      {/* <footer className="footer">
-        <div className="container container--size-l">
-          <div className="socials">
-            <ul className="socials__list">
-              <li className="socials__item">
-                <a
-                  className="socials__link"
-                  href="#"
-                  aria-label="Skype"
-                  target="_blank"
-                  rel="nofollow noopener noreferrer"
-                >
-                  <svg
-                    className="socials__icon socials__icon--default"
-                    width={28}
-                    height={28}
-                    aria-hidden="true"
-                  >
-                    <use xlinkHref="#icon-skype-default" />
-                  </svg>
-                  <svg
-                    className="socials__icon socials__icon--interactive"
-                    width={28}
-                    height={28}
-                    aria-hidden="true"
-                  >
-                    <use xlinkHref="#icon-skype-interactive" />
-                  </svg>
-                </a>
-              </li>
-              <li className="socials__item">
-                <a
-                  className="socials__link"
-                  href="#"
-                  aria-label="ВКонтакте"
-                  target="_blank"
-                  rel="nofollow noopener noreferrer"
-                >
-                  <svg
-                    className="socials__icon socials__icon--default"
-                    width={28}
-                    height={28}
-                    aria-hidden="true"
-                  >
-                    <use xlinkHref="#icon-vk-default" />
-                  </svg>
-                  <svg
-                    className="socials__icon socials__icon--interactive"
-                    width={28}
-                    height={28}
-                    aria-hidden="true"
-                  >
-                    <use xlinkHref="#icon-vk-interactive" />
-                  </svg>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </footer> */}
     </div>
 
   );

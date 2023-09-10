@@ -1,10 +1,12 @@
-import { useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
 import { useAppDispatch, useAppSelector } from '../../hooks/use-app-dispatch';
 import { getDetailedQuest } from '../../store/data-process/selector';
 import { fetchDetailedQuest } from '../../store/api-actions';
 import { useEffect } from 'react';
 import Footer from '../../components/footer/footer';
+import { getAuthStatus } from '../../store/user-process/selectors';
+import { AppRoute, AuthorizationStatus } from '../../const/const';
 // import { questDifficulty, questTypes } from '../../const/const';
 
 
@@ -20,6 +22,9 @@ function QuestPage(): React.JSX.Element {
   }, [id, dispatch]);
 
   const detailedQuest = useAppSelector(getDetailedQuest);
+  const authStatus = useAppSelector(getAuthStatus);
+  // const isBookingInfoLoaded = useAppSelector(getBookingInfoLoadingStatus);
+  const navigate = useNavigate();
 
   return (
     <div className="wrapper">
@@ -65,12 +70,25 @@ function QuestPage(): React.JSX.Element {
             <p className="quest-page__description">
               {detailedQuest.description}
             </p>
-            <a
-              className="btn btn--accent btn--cta quest-page__btn"
-              href="booking.html"
-            >
-              Забронировать
-            </a>
+            {authStatus !== AuthorizationStatus.Auth ?
+              <Link
+                className="btn btn--accent btn--cta quest-page__btn"
+                to={AppRoute.Login}
+              >
+                Забронировать
+              </Link> :
+              <Link
+                id={id}
+                className="btn btn--accent btn--cta quest-page__btn"
+                to={`/quest/${(id) as string}/booking`}
+                onClick={(evt) => {
+                  evt.preventDefault();
+                  // dispatch(fetchBookingQuestInfo(id as string));
+                  navigate(`/quest/${(id) as string}/booking`);
+                }}
+              >
+                Забронировать
+              </Link>}
           </div>
         </div>
       </main>
