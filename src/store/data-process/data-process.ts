@@ -1,6 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const/const';
-import { DataProcess, DetailedQuest } from '../../types';
+import { BookingInfo, DataProcess, DetailedQuest, QuestFormData} from '../../types';
 import { fetchBookingQuestInfo, fetchDetailedQuest, fetchQuestsAction } from '../api-actions';
 
 const initialDetailedQuest: DetailedQuest = {
@@ -16,18 +16,71 @@ const initialDetailedQuest: DetailedQuest = {
   coverImgWebp: '',
 };
 
+const initialQuestPlace: BookingInfo = {
+  id: '',
+  location: {
+    coords: [],
+    address: ''
+  },
+  slots: {
+    today: [],
+    tomorrow:[],
+  }
+};
+
+const initialFormData: QuestFormData = {
+  date: '',
+  time: '',
+  contactPerson: '',
+  phone: '',
+  withChildren: false,
+  peopleCount: 0,
+  placeId: '',
+};
+
 const initialState: DataProcess = {
   quests: [],
   detailedQuest: initialDetailedQuest,
   bookingInfo: [],
   isBookingInfoLoaded: false,
+  selectedQuestPlaceId: '',
+  selectedQuestPlace: initialQuestPlace,
+  questFormData: initialFormData,
 };
 
 
 export const dataProcess = createSlice({
   name: NameSpace.Data,
   initialState,
-  reducers: {},
+  reducers: {
+    setQuestPlaceId: (state, action: PayloadAction<string>) => {
+      state.selectedQuestPlaceId = action.payload;
+    },
+    setSelectedQuestPlace: (state, action: PayloadAction<BookingInfo>) => {
+      state.selectedQuestPlace = action.payload;
+    },
+    setFormDate: (state, action: PayloadAction<string>) => {
+      state.questFormData.date = action.payload;
+    },
+    setFormTime: (state, action: PayloadAction<string>) => {
+      state.questFormData.time = action.payload;
+    },
+    setFormPerson: (state, action: PayloadAction<string>) => {
+      state.questFormData.contactPerson = action.payload;
+    },
+    setFormPhone: (state, action: PayloadAction<string>) => {
+      state.questFormData.phone = action.payload;
+    },
+    setFormChildren: (state) => {
+      state.questFormData.withChildren = !state.questFormData.withChildren;
+    },
+    setFormPeopleCount: (state, action: PayloadAction<number>) => {
+      state.questFormData.peopleCount = action.payload;
+    },
+    setFormPlaceId: (state, action: PayloadAction<string>) => {
+      state.questFormData.placeId = action.payload;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchQuestsAction.fulfilled, (state, action) => {
@@ -45,3 +98,6 @@ export const dataProcess = createSlice({
       });
   }
 });
+
+export const {setQuestPlaceId, setSelectedQuestPlace, setFormChildren,
+  setFormDate, setFormPeopleCount, setFormPerson, setFormPhone, setFormPlaceId, setFormTime} = dataProcess.actions;

@@ -4,6 +4,7 @@ import { AppDispatch, AuthData, BookingInfo, DetailedQuest, Quest, State, UserDa
 import { AxiosInstance } from 'axios';
 import { dropToken, saveToken } from '../services/token';
 import { setUserData } from './user-process/user-process';
+import { setSelectedQuestPlace } from './data-process/data-process';
 
 
 export const fetchQuestsAction = createAsyncThunk<Quest[], undefined, {
@@ -36,6 +37,7 @@ export const fetchBookingQuestInfo = createAsyncThunk<BookingInfo[], DetailedQue
   async(id, {dispatch, extra: api }) => {
     const {data} = await api.get<BookingInfo[]>(`${ApiRoute.Booking}/${id}/booking`);
     dispatch(fetchDetailedQuest(id));
+    dispatch(setSelectedQuestPlace(data[0]));
     return data;
   });
 

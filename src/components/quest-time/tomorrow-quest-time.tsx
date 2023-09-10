@@ -1,13 +1,21 @@
+import { useAppDispatch } from '../../hooks/use-app-dispatch';
+import { setFormDate, setFormTime } from '../../store/data-process/data-process';
 import { BookingInfo } from '../../types';
 
 type TomorrowQuestTypeProps = {
-  tomorrowQuestTimeProps: BookingInfo[];
+  tomorrowQuestTimeProps: BookingInfo;
 }
 
 
 function TomorrowQuestTime({tomorrowQuestTimeProps}: TomorrowQuestTypeProps): React.JSX.Element {
+  const dispatch = useAppDispatch();
 
-  const tomorrowHours = tomorrowQuestTimeProps[0].slots.tomorrow;
+  const tomorrowHours = tomorrowQuestTimeProps.slots.tomorrow;
+
+  const handleSetFormDateTime = (data: string) => {
+    dispatch(setFormTime(data));
+    dispatch(setFormDate('tomorrow'));
+  };
 
   return(
     <div className="booking-form__date-inner-wrapper">
@@ -20,6 +28,7 @@ function TomorrowQuestTime({tomorrowQuestTimeProps}: TomorrowQuestTypeProps): Re
             required
             defaultValue="tomorrow11h00m"
             disabled={isAvailable}
+            onChange={() => handleSetFormDateTime(time)}
           />
           <span className="custom-radio__label">{time}</span>
         </label>

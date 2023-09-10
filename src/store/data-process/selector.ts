@@ -13,3 +13,12 @@ export const getBookingQuestInfo = (state: Pick <State, NameSpace.Data>): Bookin
 
 export const getBookingInfoLoadingStatus = (state: Pick<State, NameSpace.Data>): boolean =>
   state[NameSpace.Data].isBookingInfoLoaded;
+
+export const getSelectedQuestPlaceId = (state: Pick<State, NameSpace.Data>): string =>
+  state[NameSpace.Data].selectedQuestPlaceId;
+
+export const getSelectedQuestPlace = (state: Pick<State, NameSpace.Data>): BookingInfo =>
+  state[NameSpace.Data].selectedQuestPlace;
+
+export const getIsWithChildrenFormData = (state: Pick<State, NameSpace.Data>): boolean =>
+  state[NameSpace.Data].questFormData.withChildren;

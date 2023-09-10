@@ -28,7 +28,20 @@ export type DataProcess = {
   detailedQuest: DetailedQuest;
   bookingInfo: BookingInfo[];
   isBookingInfoLoaded: boolean;
+  selectedQuestPlaceId: string;
+  selectedQuestPlace: BookingInfo;
+  questFormData: QuestFormData;
 }
+
+export type QuestFormData = {
+  date: string;
+  time: string;
+  contactPerson: string;
+  phone: string;
+  withChildren: boolean;
+  peopleCount: number;
+  placeId: string;
+};
 
 export type UserData = {
   email: string;

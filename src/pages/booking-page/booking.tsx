@@ -4,10 +4,11 @@ import Header from '../../components/header/header';
 import TodayQuestTime from '../../components/quest-time/today-quest-time';
 import { useAppDispatch, useAppSelector } from '../../hooks/use-app-dispatch';
 import { fetchBookingQuestInfo } from '../../store/api-actions';
-import { getBookingQuestInfo, getDetailedQuest } from '../../store/data-process/selector';
+import { getBookingQuestInfo, getDetailedQuest, getIsWithChildrenFormData, getSelectedQuestPlace } from '../../store/data-process/selector';
 import { useParams } from 'react-router-dom';
 import TomorrowQuestTime from '../../components/quest-time/tomorrow-quest-time';
 import MapMemo from '../../components/map/map';
+import { setFormChildren, setFormPeopleCount, setFormPerson, setFormPhone, setFormPlaceId, setQuestPlaceId } from '../../store/data-process/data-process';
 
 // type BookingProps = {
 //   id: string;
@@ -17,22 +18,39 @@ function Booking(): React.JSX.Element {
 
   const {id} = useParams();
 
-  console.log(id, 'params');
-
-
   const dispatch = useAppDispatch();
   const detailedQuest = useAppSelector(getDetailedQuest);
+  const isWithChildren = useAppSelector(getIsWithChildrenFormData);
 
   useEffect(() => {
-    if (detailedQuest.id) {
-      dispatch(fetchBookingQuestInfo(detailedQuest.id));
-    } else if (id) {
+    if (id) {
       dispatch(fetchBookingQuestInfo(id));
+      dispatch(setQuestPlaceId(id));
+      dispatch(setFormPlaceId(id));
     }
   }, [id, dispatch, detailedQuest.id]);
 
   const bookingQuestInfo = useAppSelector(getBookingQuestInfo);
-  console.log(bookingQuestInfo, 'booking');
+  // const selectedQuestId = useAppSelector(getSelectedQuestPlaceId);
+
+  const handleSetContactPersonName = (data: string) => {
+    dispatch(setFormPerson(data));
+  };
+
+  const handleSetPhone = (data: string) => {
+    dispatch(setFormPhone(data));
+  };
+
+  const handleSetPeopleCount = (data: number) => {
+    dispatch(setFormPeopleCount(data));
+  };
+
+  const handleSetIsWhithChildren = () => {
+    dispatch(setFormChildren());
+  };
+
+
+  const selectedQuestPlace = useAppSelector(getSelectedQuestPlace);
 
   return (
     <div className="wrapper">
@@ -70,7 +88,7 @@ function Booking(): React.JSX.Element {
                 </div>
               </div>
               <p className="booking-map__address">
-                {bookingQuestInfo[0]?.location.address}
+                {selectedQuestPlace?.location.address}
               </p>
             </div>
           </div>
@@ -83,11 +101,11 @@ function Booking(): React.JSX.Element {
               <legend className="visually-hidden">Выбор даты и времени</legend>
               <fieldset className="booking-form__date-section">
                 <legend className="booking-form__date-title">Сегодня</legend>
-                {bookingQuestInfo.length && <TodayQuestTime todayQuestTimeProps={bookingQuestInfo}/>}
+                {bookingQuestInfo.length && <TodayQuestTime todayQuestTimeProps={selectedQuestPlace}/>}
               </fieldset>
               <fieldset className="booking-form__date-section">
                 <legend className="booking-form__date-title">Завтра</legend>
-                {bookingQuestInfo.length && <TomorrowQuestTime tomorrowQuestTimeProps={bookingQuestInfo}/>}
+                {bookingQuestInfo.length && <TomorrowQuestTime tomorrowQuestTimeProps={selectedQuestPlace}/>}
               </fieldset>
             </fieldset>
             <fieldset className="booking-form__section">
@@ -103,6 +121,7 @@ function Booking(): React.JSX.Element {
                   placeholder="Имя"
                   required
                   pattern="[А-Яа-яЁёA-Za-z'- ]{1,}"
+                  onChange={(evt: React.ChangeEvent<HTMLInputElement>) => handleSetContactPersonName(evt.target.value)}
                 />
               </div>
               <div className="custom-input booking-form__input">
@@ -116,6 +135,7 @@ function Booking(): React.JSX.Element {
                   placeholder="Телефон"
                   required
                   pattern="[0-9]{10,}"
+                  onChange={(evt: React.ChangeEvent<HTMLInputElement>) => handleSetPhone(evt.target.value)}
                 />
               </div>
               <div className="custom-input booking-form__input">
@@ -128,6 +148,7 @@ function Booking(): React.JSX.Element {
                   name="person"
                   placeholder="Количество участников"
                   required
+                  onChange={(evt: React.ChangeEvent<HTMLInputElement>) => handleSetPeopleCount(Number(evt.target.value))}
                 />
               </div>
               <label className="custom-checkbox booking-form__checkbox booking-form__checkbox--children">
@@ -135,7 +156,8 @@ function Booking(): React.JSX.Element {
                   type="checkbox"
                   id="children"
                   name="children"
-                  defaultChecked
+                  onChange={() => handleSetIsWhithChildren()}
+                  checked={isWithChildren}
                 />
                 <span className="custom-checkbox__icon">
                   <svg width={20} height={17} aria-hidden="true">

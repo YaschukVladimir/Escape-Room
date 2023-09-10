@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import Footer from '../../components/footer/footer';
 import { getAuthStatus } from '../../store/user-process/selectors';
 import { AppRoute, AuthorizationStatus } from '../../const/const';
+// import { setQuestPlaceId } from '../../store/data-process/data-process';
 // import { questDifficulty, questTypes } from '../../const/const';
 
 
@@ -83,7 +84,7 @@ function QuestPage(): React.JSX.Element {
                 to={`/quest/${(id) as string}/booking`}
                 onClick={(evt) => {
                   evt.preventDefault();
-                  // dispatch(fetchBookingQuestInfo(id as string));
+                  // dispatch(setQuestPlaceId(id as string));
                   navigate(`/quest/${(id) as string}/booking`);
                 }}
               >
