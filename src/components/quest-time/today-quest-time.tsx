@@ -27,7 +27,7 @@ function TodayQuestTime({todayQuestTimeProps}: TodayQuestTimeProps): React.JSX.E
             name="date"
             required
             defaultValue="today9h45m"
-            disabled={isAvailable}
+            disabled={!isAvailable}
             onChange={() => handleSetFormDateTime(time)}
           />
           <span className="custom-radio__label">{time}</span>

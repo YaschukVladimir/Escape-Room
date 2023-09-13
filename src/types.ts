@@ -31,6 +31,7 @@ export type DataProcess = {
   selectedQuestPlaceId: string;
   selectedQuestPlace: BookingInfo;
   questFormData: QuestFormData;
+  reservedQuests: ReservedQuest[];
 }
 
 export type QuestFormData = {
@@ -76,5 +77,17 @@ export type BookingInfo = {
   id: string;
   location: Location;
   slots: Slot;
+  }
+
+export type ReservedQuest = {
+      date: string;
+      time: string;
+      contactPerson: string;
+      phone: string;
+      withChildren: boolean;
+      peopleCount: number;
+      id: string;
+      location: Location;
+      quest: Quest;
   }
 

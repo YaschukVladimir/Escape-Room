@@ -1,10 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ApiRoute } from '../const/const';
-import { AppDispatch, AuthData, BookingInfo, DetailedQuest, Quest, State, UserData } from '../types';
+import { AppDispatch, AuthData, BookingInfo, DetailedQuest, Quest, QuestFormData, ReservedQuest, State, UserData } from '../types';
 import { AxiosInstance } from 'axios';
 import { dropToken, saveToken } from '../services/token';
 import { setUserData } from './user-process/user-process';
-import { setSelectedQuestPlace } from './data-process/data-process';
+import { setFormPlaceId, setSelectedQuestPlace } from './data-process/data-process';
 
 
 export const fetchQuestsAction = createAsyncThunk<Quest[], undefined, {
@@ -38,8 +38,31 @@ export const fetchBookingQuestInfo = createAsyncThunk<BookingInfo[], DetailedQue
     const {data} = await api.get<BookingInfo[]>(`${ApiRoute.Booking}/${id}/booking`);
     dispatch(fetchDetailedQuest(id));
     dispatch(setSelectedQuestPlace(data[0]));
+    dispatch(setFormPlaceId(data[0].id));
     return data;
   });
+
+export const postFormData = createAsyncThunk<QuestFormData, DetailedQuest['id'], {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>('postFormData',
+  async({postData, id}, {extra: api}) => {
+    const {data} = await api.post<QuestFormData>(`${ApiRoute.Booking}/${id}/booking`, postData);
+    return data;
+  }
+);
+
+export const fetchReservedQuests = createAsyncThunk<ReservedQuest[], undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>('fetchReservedQuests',
+  async(_arg, {extra: api}) => {
+    const {data} = await api.get<ReservedQuest[]>(ApiRoute.MyQuests);
+    return data;
+  }
+);
 
 export const loginAction = createAsyncThunk<void, AuthData, {
   dispath: AppDispatch;

@@ -28,9 +28,6 @@ function useMap(mapRef: MutableRefObject<HTMLDivElement | null>, coords: number[
 
       setMap(instance);
       isRenderedRef.current = true;
-      instance.on('click', (e) => {
-        console.log(e.target, 'ggggggggggggggggg');
-      });
     }
   }, [coords, mapRef]);
 

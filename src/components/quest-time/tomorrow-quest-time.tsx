@@ -6,7 +6,6 @@ type TomorrowQuestTypeProps = {
   tomorrowQuestTimeProps: BookingInfo;
 }
 
-
 function TomorrowQuestTime({tomorrowQuestTimeProps}: TomorrowQuestTypeProps): React.JSX.Element {
   const dispatch = useAppDispatch();
 
@@ -27,7 +26,7 @@ function TomorrowQuestTime({tomorrowQuestTimeProps}: TomorrowQuestTypeProps): Re
             name="date"
             required
             defaultValue="tomorrow11h00m"
-            disabled={isAvailable}
+            disabled={!isAvailable}
             onChange={() => handleSetFormDateTime(time)}
           />
           <span className="custom-radio__label">{time}</span>

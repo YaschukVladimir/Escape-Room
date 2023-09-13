@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const/const';
 import { BookingInfo, DataProcess, DetailedQuest, QuestFormData} from '../../types';
-import { fetchBookingQuestInfo, fetchDetailedQuest, fetchQuestsAction } from '../api-actions';
+import { fetchBookingQuestInfo, fetchDetailedQuest, fetchQuestsAction, fetchReservedQuests } from '../api-actions';
 
 const initialDetailedQuest: DetailedQuest = {
   id: '',
@@ -46,6 +46,7 @@ const initialState: DataProcess = {
   selectedQuestPlaceId: '',
   selectedQuestPlace: initialQuestPlace,
   questFormData: initialFormData,
+  reservedQuests: [],
 };
 
 
@@ -95,6 +96,9 @@ export const dataProcess = createSlice({
       })
       .addCase(fetchBookingQuestInfo.pending, (state) => {
         state.isBookingInfoLoaded = false;
+      })
+      .addCase(fetchReservedQuests.fulfilled, (state, action) => {
+        state.reservedQuests = action.payload;
       });
   }
 });
