@@ -1,5 +1,5 @@
 import { NameSpace } from '../../const/const';
-import { BookingInfo, DetailedQuest, Quest, QuestFormData, State } from '../../types';
+import { BookingInfo, DetailedQuest, Quest, QuestFormData, ReservedQuest, State } from '../../types';
 
 
 export const getQuests = (state: Pick <State, NameSpace.Data>): Quest[] =>
@@ -25,3 +25,6 @@ export const getIsWithChildrenFormData = (state: Pick<State, NameSpace.Data>): b
 
 export const getQuestFormData = (state: Pick<State, NameSpace.Data>): QuestFormData =>
   state[NameSpace.Data].questFormData;
+
+export const getReservedQuests = (state: Pick<State, NameSpace.Data>): ReservedQuest[] =>
+  state[NameSpace.Data].reservedQuests;

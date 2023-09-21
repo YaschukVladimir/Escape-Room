@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/use-app-dispatch';
 import { fetchReservedQuests, postFormData } from '../../store/api-actions';
 import { setFormChildren, setFormPeopleCount, setFormPerson, setFormPhone } from '../../store/data-process/data-process';
@@ -6,6 +7,7 @@ import { BookingInfo, DetailedQuest } from '../../types';
 import TodayQuestTime from '../quest-time/today-quest-time';
 import TomorrowQuestTime from '../quest-time/tomorrow-quest-time';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { AppRoute } from '../../const/const';
 
 type BookingFormProps = {
   bookingQuestInfo: BookingInfo[];
@@ -27,6 +29,8 @@ function BookingForm(bookingFormProps: BookingFormProps): React.JSX.Element {
 
   const dispatch = useAppDispatch();
 
+  const navigate = useNavigate();
+
   const formData = useAppSelector(getQuestFormData);
 
   const { register, handleSubmit, formState: { errors, isValid }, reset } = useForm<FormValues>({mode: 'onChange'});
@@ -40,6 +44,7 @@ function BookingForm(bookingFormProps: BookingFormProps): React.JSX.Element {
     dispatch(postFormData(postData));
     dispatch(fetchReservedQuests());
     reset();
+    navigate(AppRoute.MyQuests);
   };
 
   const handleSetContactPersonName = (data: string) => {

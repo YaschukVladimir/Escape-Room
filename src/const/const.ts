@@ -33,6 +33,11 @@ export const questDifficulty = {
   'hard': 'сложный'
 };
 
+export enum QuestDate {
+  today = 'Сегодня',
+  tomorrow = 'Завтра',
+}
+
 export const TIMEOUT_SHOW_ERROR = 500;
 
 export enum NameSpace {

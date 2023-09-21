@@ -64,6 +64,17 @@ export const fetchReservedQuests = createAsyncThunk<ReservedQuest[], undefined, 
   }
 );
 
+export const deleteReservedQuest = createAsyncThunk<void, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>('deleteReservedQuest',
+  async(id, {dispatch, extra: api}) => {
+    await api.delete<void>(`${ApiRoute.MyQuests}/${id}`);
+    dispatch(fetchReservedQuests());
+  }
+);
+
 export const loginAction = createAsyncThunk<void, AuthData, {
   dispath: AppDispatch;
   state: State;
