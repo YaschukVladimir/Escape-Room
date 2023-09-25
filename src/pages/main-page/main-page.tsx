@@ -3,7 +3,10 @@ import FilterList from '../../components/filter-list/filter-type-list';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import QuestsList from '../../components/quests-list/quests-list';
+import { useAppSelector } from '../../hooks/use-app-dispatch';
+import { getQuestType } from '../../store/app-process/selectors';
 import { Quest } from '../../types';
+import { sortQuestsByType } from '../../utils/utils';
 
 type MainPageProps = {
   quests: Quest[];
@@ -11,6 +14,9 @@ type MainPageProps = {
 
 
 function MainPage({quests}: MainPageProps): React.JSX.Element {
+
+  const choosenQuestType = useAppSelector(getQuestType);
+  const sortedQuests = sortQuestsByType(quests, choosenQuestType);
 
   return (
     <div className="wrapper">
@@ -38,7 +44,7 @@ function MainPage({quests}: MainPageProps): React.JSX.Element {
             </form>
           </div>
           <h2 className="title visually-hidden">Выберите квест</h2>
-          <QuestsList quests={quests}/>
+          <QuestsList quests={sortedQuests}/>
         </div>
       </main>
       <Footer />

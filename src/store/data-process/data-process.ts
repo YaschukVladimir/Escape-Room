@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { NameSpace } from '../../const/const';
+import { NameSpace, questTypes } from '../../const/const';
 import { BookingInfo, DataProcess, DetailedQuest, QuestFormData} from '../../types';
 import { fetchBookingQuestInfo, fetchDetailedQuest, fetchQuestsAction, fetchReservedQuests } from '../api-actions';
 
@@ -47,6 +47,7 @@ const initialState: DataProcess = {
   selectedQuestPlace: initialQuestPlace,
   questFormData: initialFormData,
   reservedQuests: [],
+  questType: questTypes['all-quests']
 };
 
 

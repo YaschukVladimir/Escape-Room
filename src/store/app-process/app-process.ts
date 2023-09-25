@@ -4,10 +4,12 @@ import { NameSpace } from '../../const/const';
 
 type AppProcess = {
   error: string | null;
+  questType: string;
 }
 
 const initialState: AppProcess = {
   error: null,
+  questType: 'all-quests',
 };
 
 export const appProcess = createSlice({
@@ -20,7 +22,10 @@ export const appProcess = createSlice({
     clearError: (state, action: PayloadAction<{message: string | null; delay: number}>) => {
       state.error = action.payload.message;
     },
+    changeQuestType: (state, action: PayloadAction<string>) => {
+      state.questType = action.payload;
+    }
   }
 });
 
-export const {setError, clearError} = appProcess.actions;
+export const {setError, clearError, changeQuestType} = appProcess.actions;

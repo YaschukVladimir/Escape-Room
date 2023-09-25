@@ -19,7 +19,7 @@ export enum ApiRoute {
 
 export const questTypes = {
   'all-quests': 'Все квесты',
-  'adventure': 'Приключения',
+  'adventures': 'Приключения',
   'horror': 'Ужасы',
   'mystic': 'Мистика',
   'detective': 'Детектив',
