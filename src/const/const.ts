@@ -52,7 +52,7 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export const URL_MARKER_DEFAULT = '/public/img/svg/pin-default.svg';
-export const URL_MARKER_CURRENT = '/public/img/svg/pin-active.svg';
+export const URL_MARKER_DEFAULT = '/img/svg/pin-default.svg';
+export const URL_MARKER_CURRENT = '/img/svg/pin-active.svg';
 
 export const ZOOM = 13;
