@@ -15,9 +15,7 @@ function MyQuests(): React.JSX.Element {
     dispatch(fetchReservedQuests());
   }, [dispatch]);
   const reservedQuests = useAppSelector(getReservedQuests);
-  console.log(reservedQuests, 'reserv');
 
-  // const handleDeleteQuest = (id: string) => dispatch(deleteReservedQuest(id));
 
   return (
     <div className="wrapper">
@@ -68,7 +66,7 @@ function MyQuests(): React.JSX.Element {
                       {reservedQuest.quest.title}
                     </Link>
                     <span className="quest-card__info">
-                      {`[${QuestDate[reservedQuest.date]} ${reservedQuest.time} ${reservedQuest.location.address}]`}
+                      {`[${reservedQuest.date === 'today' ? QuestDate.today : QuestDate.tomorrow} ${reservedQuest.time} ${reservedQuest.location.address}]`}
                     </span>
                   </div>
                   <ul className="tags quest-card__tags">
@@ -88,7 +86,9 @@ function MyQuests(): React.JSX.Element {
                   <button
                     className="btn btn--accent btn--secondary quest-card__btn"
                     type="button"
-                    onClick={() => dispatch(deleteReservedQuest(reservedQuest.id))}
+                    onClick={() => {
+                      dispatch(deleteReservedQuest(reservedQuest.id));
+                    }}
                   >
                   Отменить
                   </button>

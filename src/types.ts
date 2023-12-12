@@ -82,7 +82,7 @@ export type Slot = {
 export type BookingInfo = {
   id: string;
   location: Location;
-  slots?: Slot;
+  slots: Slot;
   }
 
 export type ReservedQuest = {
