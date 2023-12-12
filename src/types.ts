@@ -45,6 +45,11 @@ export type QuestFormData = {
   placeId: string;
 };
 
+export type PostData = {
+  postData: QuestFormData;
+  id: string;
+}
+
 export type UserData = {
   email: string;
   token: string;
@@ -77,7 +82,7 @@ export type Slot = {
 export type BookingInfo = {
   id: string;
   location: Location;
-  slots: Slot;
+  slots?: Slot;
   }
 
 export type ReservedQuest = {

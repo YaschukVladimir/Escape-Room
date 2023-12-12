@@ -1,3 +1,4 @@
+
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/use-app-dispatch';
 import { fetchReservedQuests, postFormData } from '../../store/api-actions';
@@ -68,7 +69,7 @@ function BookingForm(bookingFormProps: BookingFormProps): React.JSX.Element {
       className="booking-form"
       action="https://echo.htmlacademy.ru/"
       method="post"
-      onSubmit={handleSubmit(onSubmitForm)}
+      onSubmit={(evt) => void handleSubmit(onSubmitForm)(evt)}
     >
       <fieldset className="booking-form__section">
         <legend className="visually-hidden">Выбор даты и времени</legend>

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ApiRoute } from '../const/const';
-import { AppDispatch, AuthData, BookingInfo, DetailedQuest, Quest, QuestFormData, ReservedQuest, State, UserData } from '../types';
+import { AppDispatch, AuthData, BookingInfo, DetailedQuest, PostData, Quest, ReservedQuest, State, UserData } from '../types';
 import { AxiosInstance } from 'axios';
 import { dropToken, saveToken } from '../services/token';
 import { setUserData } from './user-process/user-process';
@@ -42,13 +42,13 @@ export const fetchBookingQuestInfo = createAsyncThunk<BookingInfo[], DetailedQue
     return data;
   });
 
-export const postFormData = createAsyncThunk<QuestFormData, DetailedQuest['id'], {
+export const postFormData = createAsyncThunk<PostData, PostData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>('postFormData',
   async({postData, id}, {extra: api}) => {
-    const {data} = await api.post<QuestFormData>(`${ApiRoute.Booking}/${id}/booking`, postData);
+    const {data} = await api.post<PostData>(`${ApiRoute.Booking}/${id}/booking`, postData);
     return data;
   }
 );

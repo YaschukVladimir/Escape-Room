@@ -1,5 +1,6 @@
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
+import ContactsMapMemo from '../../components/map/contacts-map';
 
 
 function Contacts(): React.JSX.Element {
@@ -66,7 +67,9 @@ function Contacts(): React.JSX.Element {
             </dl>
             <div className="contacts__map">
               <div className="map">
-                <div className="map__container" />
+                <div className="map__container">
+                  <ContactsMapMemo />
+                </div>
               </div>
             </div>
           </div>
