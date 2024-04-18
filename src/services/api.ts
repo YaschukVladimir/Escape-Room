@@ -16,7 +16,7 @@ const StatusCodeMapping: Record<number, boolean> = {
 
 const shouldDisplayError = (response: AxiosResponse) => StatusCodeMapping[response.status];
 
-const BACKEND_URL = 'https://grading.design.pages.academy';
+const BACKEND_URL = 'https://grading.design.htmlacademy.pro';
 const REQUEST_TIMEOUT = 5000;
 
 export const createApi = (): AxiosInstance => {
